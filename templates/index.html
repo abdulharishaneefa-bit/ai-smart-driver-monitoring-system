@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <h1>Smart Driver Monitoring System</h1>
+            <p>
+                A computer vision based system to detect drowsiness, phone usage,
+                driver status, and maintain driver event records.
+            </p>
+
+            <div class="hero-buttons">
+                <a class="btn primary-btn" href="{{ url_for('add_driver') }}">Add Driver</a>
+                <a class="btn secondary-btn" href="{{ url_for('drivers') }}">View Drivers</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="stats-section">
+    <div class="stat-card">
+        <h3>{{ total_drivers }}</h3>
+        <p>Total Drivers</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ total_sessions }}</h3>
+        <p>Total Sessions</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ total_events }}</h3>
+        <p>Total Events</p>
+    </div>
+</div>
+{% endblock %}

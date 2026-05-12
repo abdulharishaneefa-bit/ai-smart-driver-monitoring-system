@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-page">
+    <div class="page-header">
+        <h1>Driver Dashboard</h1>
+        <p>Monitor driver information and session records.</p>
+    </div>
+
+    <div class="dashboard-top">
+        <div class="dashboard-card">
+            <h2>{{ driver.name }}</h2>
+            <p><strong>Age:</strong> {{ driver.age }}</p>
+            <p><strong>Vehicle Number:</strong> {{ driver.vehicle_number }}</p>
+            <p><strong>Registered On:</strong> {{ driver.created_at.strftime('%d-%m-%Y %H:%M') }}</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Current Driver Status</h3>
+            <div class="status-badge awake">Live Monitoring Enabled</div>
+            <p class="status-note">
+                Live detection monitors drowsiness and mobile phone usage in real time.
+            </p>
+
+            <a href="{{ url_for('start_detection_route', driver_id=driver.id) }}" class="primary-btn">
+                Start Live Monitoring
+            </a>
+        </div>
+    </div>
+
+    <div class="session-section">
+        <h2>Session History</h2>
+
+        {% if sessions %}
+            <div class="session-table-wrapper">
+                <table class="session-table">
+                    <thead>
+                        <tr>
+                            <th>Session ID</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Drowsy Events</th>
+                            <th>Phone Events</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for session in sessions %}
+                            <tr>
+                                <td>{{ session.id }}</td>
+                                <td>{{ session.start_time.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+                                <td>
+                                    {% if session.end_time %}
+                                        {{ session.end_time.strftime('%d-%m-%Y %H:%M:%S') }}
+                                    {% else %}
+                                        Running
+                                    {% endif %}
+                                </td>
+                                <td>{{ session.total_drowsy_events }}</td>
+                                <td>{{ session.total_phone_events }}</td>
+                                <td>
+                                    {% if session.end_time %}
+                                        <span class="status-pill ended">Completed</span>
+                                    {% else %}
+                                        <span class="status-pill running">Running</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-box">
+                <p>No sessions found for this driver.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div style="margin-top:20px; padding:15px; background:#1e293b; border-radius:10px;">
+        <p style="color:#ccc; margin: 0;">
+            This system monitors driver alertness and detects risky behaviors like drowsiness and mobile phone usage in real time.
+        </p>
+    </div>
+</div>
+{% endblock %}

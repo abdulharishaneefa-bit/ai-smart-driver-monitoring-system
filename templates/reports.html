@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="reports-page">
+
+    <div class="page-header">
+        <h1>Reports</h1>
+        <p>Driver Monitoring Summary</p>
+    </div>
+
+    <div class="stats-section">
+        <div class="stat-card">
+            <h3>{{ total_drowsy_all }}</h3>
+            <p>Drowsy Events</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>{{ total_phone_all }}</h3>
+            <p>Phone Events</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>{{ total_events }}</h3>
+            <p>Total Events</p>
+        </div>
+    </div>
+
+    <div class="chart-card">
+        <h2>Event Comparison</h2>
+
+        <div class="bar-row">
+            <span>Drowsy</span>
+            <div class="bar-bg">
+                <div class="bar-fill drowsy-bar"
+                     style="width: {{ (total_drowsy_all / max_value) * 100 }}%;">
+                </div>
+            </div>
+        </div>
+
+        <div class="bar-row">
+            <span>Phone</span>
+            <div class="bar-bg">
+                <div class="bar-fill phone-bar"
+                     style="width: {{ (total_phone_all / max_value) * 100 }}%;">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

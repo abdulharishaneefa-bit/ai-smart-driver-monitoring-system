@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="drivers-page">
+    <div class="page-header">
+        <h1>Registered Drivers</h1>
+        <p>List of all drivers added to the system.</p>
+    </div>
+
+    {% if drivers %}
+        <div class="driver-grid">
+            {% for driver in drivers %}
+                <div class="driver-card">
+                    <h2>{{ driver.name }}</h2>
+                    <p><strong>Age:</strong> {{ driver.age }}</p>
+                    <p><strong>Vehicle Number:</strong> {{ driver.vehicle_number }}</p>
+                    <p><strong>Added On:</strong> {{ driver.created_at.strftime('%d-%m-%Y %H:%M') }}</p>
+
+                    <a href="{{ url_for('driver_dashboard', driver_id=driver.id) }}" class="btn primary-btn">
+                        Open Dashboard
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-box">
+            <p>No drivers added yet.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

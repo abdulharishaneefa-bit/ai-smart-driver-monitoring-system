@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-page">
+    <div class="form-card">
+        <h1>Add New Driver</h1>
+        <p>Enter driver details to register for monitoring.</p>
+
+        <form method="POST" class="driver-form">
+            <input type="text" name="name" placeholder="Driver Name" required>
+            <input type="number" name="age" placeholder="Age" required>
+            <input type="text" name="vehicle_number" placeholder="Vehicle Number" required>
+            <button type="submit" class="btn primary-btn">Save Driver</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
